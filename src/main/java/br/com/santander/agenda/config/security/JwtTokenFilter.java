@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.santander.agenda.User;
+import br.com.santander.agenda.model.User;
 import br.com.santander.agenda.service.UserService;
 
 public class JwtTokenFilter extends OncePerRequestFilter {

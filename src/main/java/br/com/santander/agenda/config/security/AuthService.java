@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.santander.agenda.User;
+import br.com.santander.agenda.model.User;
 import br.com.santander.agenda.service.UserService;
 
 @Service
