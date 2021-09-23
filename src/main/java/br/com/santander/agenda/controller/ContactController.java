@@ -3,6 +3,8 @@ package br.com.santander.agenda.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +24,8 @@ import br.com.santander.agenda.service.ContactService;
 @RequestMapping("contact")
 public class ContactController {
 
-	@Value("${file.upload-dir}")
-	private String dir;
 	private final ContactService contactService;
+	private final Path root = Paths.get("uploads");
 	
 	public ContactController(ContactService contactService) {
 		this.contactService = contactService;
@@ -38,7 +39,7 @@ public class ContactController {
 	
 	@PutMapping("/{id}/photo")
 	public ResponseEntity<?> uploadPhoto(@PathVariable Integer id, @RequestBody MultipartFile file){
-		File fileUpload = new File(dir+file.getOriginalFilename());
+		File fileUpload = new File( root.resolve(file.getOriginalFilename()).toUri());
 		try {
 			fileUpload.createNewFile();
 			FileOutputStream fos = new FileOutputStream(fileUpload);
