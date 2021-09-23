@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.santander.agenda.config.security.TokenService;
 import br.com.santander.agenda.controller.config.security.LoginDto;
 import br.com.santander.agenda.controller.config.security.TokenDto;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("auth")
@@ -23,7 +25,7 @@ public class AuthController {
 	
 	@Autowired
 	private TokenService tokenService;
-	
+	@ApiOperation(value = "Endpoint para autenticação do usuário")
 	@PostMapping
 	public ResponseEntity<TokenDto> authenticate(@RequestBody LoginDto loginDto) {
 		Authentication authentication = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());

@@ -5,9 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,20 +27,20 @@ public class ContactController {
 
 	private final ContactService contactService;
 	private final Path root = Paths.get("uploads");
-	
+
 	public ContactController(ContactService contactService) {
 		this.contactService = contactService;
 	}
 
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody ContactInput contactInput){
+	public ResponseEntity<?> save(@RequestBody ContactInput contactInput) {
 		Contact contact = contactService.save(contactInput);
 		return ResponseEntity.ok(contact);
 	}
-	
+
 	@PutMapping("/{id}/photo")
-	public ResponseEntity<?> uploadPhoto(@PathVariable Integer id, @RequestBody MultipartFile file){
-		File fileUpload = new File( root.resolve(file.getOriginalFilename()).toUri());
+	public ResponseEntity<?> uploadPhoto(@PathVariable Integer id, @RequestBody MultipartFile file) {
+		File fileUpload = new File(root.resolve(file.getOriginalFilename()).toUri());
 		try {
 			fileUpload.createNewFile();
 			FileOutputStream fos = new FileOutputStream(fileUpload);
@@ -49,7 +50,12 @@ public class ContactController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping
+	public List<Contact> contacts() {
+		return null;
 	}
 }
