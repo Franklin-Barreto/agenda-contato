@@ -41,7 +41,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
 			return null;
 		}
-		return token.substring(0, 7);
+		return token.substring(7);
 	}
 
 	private void authenticate(String token) {
@@ -53,6 +53,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 					user.getRoles());
 			SecurityContext context = SecurityContextHolder.createEmptyContext();
 			context.setAuthentication(authenticate);
+			SecurityContextHolder.setContext(context);
 		}
 	}
 
