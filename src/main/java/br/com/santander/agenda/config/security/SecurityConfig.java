@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().disable().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().headers().frameOptions().sameOrigin()
-				.and().authorizeRequests().antMatchers("/h2-console/**", "/auth/**").permitAll().anyRequest()
+				.and().authorizeRequests().antMatchers("/h2-console/**", "/auth/**","/actuator/**").permitAll().anyRequest()
 				.authenticated().and().addFilterBefore(new JwtTokenFilter(tokeService, userService),
 						UsernamePasswordAuthenticationFilter.class);
 
